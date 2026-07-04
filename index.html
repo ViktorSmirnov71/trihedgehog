@@ -90,10 +90,10 @@
   /* ---------- hero band ---------- */
   .band{
     display:grid;gap:var(--gut);
-    grid-template-columns:1fr clamp(300px,27vw,450px);
+    grid-template-columns:clamp(280px,24vw,400px) 1fr;
     min-height:calc(100svh - 74px);
   }
-  .col{display:grid;gap:var(--gut);grid-template-rows:1fr 1fr}
+  .col{display:grid;gap:var(--gut);grid-template-rows:1fr 1fr auto}
 
   .cell-hero{--i:1;display:flex;flex-direction:column;overflow:hidden}
   .hero-top{padding:var(--pad) var(--pad) calc(var(--pad) * .8)}
@@ -124,7 +124,7 @@
   }
 
   /* ---------- right column cells ---------- */
-  .cell-side{display:flex;flex-direction:column;padding:var(--pad);gap:14px}
+  .cell-side{display:flex;flex-direction:column;padding:calc(var(--pad) * .8);gap:12px}
   .cell-side .label{opacity:.55}
   .cell-side h2{font-weight:500;font-size:clamp(1.3rem,1.7vw,1.7rem);line-height:1.15;letter-spacing:-.01em}
   .cell-side h2 em{font-family:var(--serif);font-style:italic;font-weight:400}
@@ -141,6 +141,10 @@
 
   .cell-rails{--i:3;background:var(--light)}
   .cell-rails p b{font-weight:500}
+
+  .cell-stat{--i:4;padding:calc(var(--pad) * .8) var(--pad)}
+  .cell-stat .num{font-size:clamp(2.8rem,3.8vw,4.4rem)}
+  .cell-stat .cap{opacity:.5;color:var(--black)}
 
   /* ---------- ticker strip ---------- */
   .ticker{
@@ -180,7 +184,8 @@
   /* ---------- mobile ---------- */
   @media(max-width:860px){
     .band{grid-template-columns:1fr;min-height:0}
-    .col{grid-template-rows:auto auto}
+    .band .cell-hero{order:-1}
+    .col{grid-template-rows:auto auto auto}
     .media{min-height:46svh}
     .media canvas{display:none}
     .hero-sub{flex-direction:column;align-items:flex-start}
@@ -195,6 +200,33 @@
 </header>
 
 <main class="band">
+  <aside class="col">
+    <section class="cell cell-side cell-investors dark">
+      <span class="label">For investors</span>
+      <h2>A fund of funds for the <em>creator economy</em></h2>
+      <p>Diversified exposure to creator cashflows — sourced systematically, underwritten like credit, priced off the downside path.</p>
+      <div class="foot">
+        <a class="pill" href="https://cal.com/trihedgehog">Request memo</a>
+      </div>
+    </section>
+
+    <section class="cell cell-side cell-rails">
+      <span class="label">The rails</span>
+      <h2>We make the transaction <em>possible</em></h2>
+      <p>Standardized contracts, <b>API-verified revenue</b>, collection accounts, and monthly settlement — the plumbing that turns a channel's income into an investable claim.</p>
+      <div class="foot">
+        <a class="pill" href="https://cal.com/trihedgehog">How it works</a>
+      </div>
+    </section>
+
+    <section class="cell cell-side cell-stat">
+      <div class="stat">
+        <div class="num">12–36×</div>
+        <span class="cap">monthly revenue — where channel cashflows trade today</span>
+      </div>
+    </section>
+  </aside>
+
   <section class="cell cell-hero">
     <div class="hero-top">
       <span class="label">For creators</span>
@@ -210,31 +242,6 @@
       <canvas aria-hidden="true"></canvas>
     </div>
   </section>
-
-  <aside class="col">
-    <section class="cell cell-side cell-investors dark">
-      <span class="label">For investors</span>
-      <h2>A fund of funds for the <em>creator economy</em></h2>
-      <p>Diversified exposure to creator cashflows — sourced systematically, underwritten like credit, priced off the downside path.</p>
-      <div class="foot">
-        <div class="stat">
-          <div class="num">12–36×</div>
-          <span class="cap">monthly revenue — where channel cashflows trade today</span>
-        </div>
-        <a class="pill" href="https://cal.com/trihedgehog">Request memo</a>
-      </div>
-    </section>
-
-    <section class="cell cell-side cell-rails">
-      <span class="label">The rails</span>
-      <h2>We make the transaction <em>possible</em></h2>
-      <p>Standardized contracts, <b>API-verified revenue</b>, collection accounts, and monthly settlement — the plumbing that turns a channel's income into an investable claim.</p>
-      <div class="foot">
-        <span class="label" style="opacity:.5">Screen &rarr; verify &rarr; price &rarr; collect</span>
-        <a class="pill" href="https://cal.com/trihedgehog">How it works</a>
-      </div>
-    </section>
-  </aside>
 </main>
 
 <div class="cell ticker" aria-hidden="true">
