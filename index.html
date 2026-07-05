@@ -91,11 +91,26 @@
   .band{
     display:grid;gap:var(--gut);
     grid-template-columns:clamp(280px,24vw,400px) 1fr;
+    /* row 1 = investors card AND the hero's white top; row boundary is shared,
+       so the white->image seam aligns exactly with the gutter on the left */
+    grid-template-rows:auto 1fr auto;
     min-height:calc(100svh - 74px);
   }
-  .col{display:grid;gap:var(--gut);grid-template-rows:1fr 1fr auto}
+  .col{display:contents}
+  .cell-investors{grid-column:1;grid-row:1}
+  .cell-rails{grid-column:1;grid-row:2}
+  .cell-stat{grid-column:1;grid-row:3}
 
-  .cell-hero{--i:1;display:flex;flex-direction:column;overflow:hidden}
+  .cell-hero{
+    --i:1;grid-column:2;grid-row:1/-1;overflow:hidden;
+    display:grid;grid-template-rows:subgrid;
+  }
+  .cell-hero .hero-top{grid-row:1}
+  .cell-hero .media{grid-row:2/-1}
+  /* browsers without subgrid fall back to the old content-driven split */
+  @supports not (grid-template-rows: subgrid){
+    .cell-hero{display:flex;flex-direction:column}
+  }
   .hero-top{padding:var(--pad) var(--pad) calc(var(--pad) * .8)}
   .hero-top .label{color:#777;display:block;margin-bottom:18px}
   h1{
@@ -183,9 +198,9 @@
 
   /* ---------- mobile ---------- */
   @media(max-width:860px){
-    .band{grid-template-columns:1fr;min-height:0}
-    .band .cell-hero{order:-1}
-    .col{grid-template-rows:auto auto auto}
+    .band{grid-template-columns:1fr;grid-template-rows:none;min-height:0}
+    .band .cell-hero{order:-1;grid-column:auto;grid-row:auto;display:flex;flex-direction:column}
+    .cell-investors,.cell-rails,.cell-stat{grid-column:auto;grid-row:auto}
     .media{min-height:46svh}
     .media canvas{display:none}
     .hero-sub{flex-direction:column;align-items:flex-start}
